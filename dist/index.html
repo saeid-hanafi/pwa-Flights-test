@@ -1,0 +1,124 @@
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PWA</title><style>:root {
+            --gray: #ececec;
+            --whitesmoke: #f5f5f5;
+            --dark: #222;
+        }
+        body{
+            margin: 0;
+            background-color: var(--whitesmoke);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        #navbar{
+            display: flex;
+            width: 100vw;
+            height: 70px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            color: var(--dark);
+            font-size: 22px;
+            font-weight: 600;
+        }
+        #screens{
+            display: flex;
+            width: 100vw;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+        }
+        .screen{
+            flex: 0 0 100vw;
+            min-height: calc(100vh - 70px);
+            scroll-snap-align: start;
+        }
+        .spinner {
+            animation: rotate 2s linear infinite;
+            z-index: 2;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -25px 0 0 -25px;
+            width: 50px;
+            height: 50px;
+            
+            & .path {
+                stroke: hsl(175, 100%, 50%);
+                stroke-linecap: round;
+                animation: dash 1.5s ease-in-out infinite;
+            }
+        }
+
+        .card {
+            width: auto;
+            height: 50px;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            margin: 10px;
+            border-radius: 10px;
+            border: 1px solid;
+        }
+        a.reward-card {
+            width: 100vw;
+            height: auto;
+            display: block;
+        }
+        a.reward-card > img {
+            width: 80%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+        #install-prompt {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 30px;
+            font-weight: 600;
+            color: aqua;
+            padding: 15px;
+        }
+        @keyframes rotate {
+        100% {
+            transform: rotate(360deg);
+        }
+        }
+
+        @keyframes dash {
+        0% {
+            stroke-dasharray: 1, 150;
+            stroke-dashoffset: 0;
+        }
+        50% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -35;
+        }
+        100% {
+            stroke-dasharray: 90, 150;
+            stroke-dashoffset: -124;
+        }
+        }</style><link rel="apple-touch-icon" sizes="180x180" href="/pwa/src/assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/pwa/src/assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/pwa/src/assets/favicons/favicon-16x16.png"><link rel="manifest" href="/pwa/src/assets/favicons/site.webmanifest"><link rel="mask-icon" href="/pwa/src/assets/favicons/safari-pinned-tab.svg" color="#5bbad5"><link rel="shortcut icon" href="/pwa/src/assets/favicons/favicon.ico"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/pwa/src/assets/favicons/browserconfig.xml"><meta name="theme-color" content="#00b99f"><script defer="defer" src="main.ec82c6bdc2d1ce75d1ea.js"></script></head><body><nav id="navbar">Flights</nav><div id="install-prompt">+</div><main id="screens"><div id="screen-flights" class="screen"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg></div><div id="screen-rewards" class="screen"><svg class="spinner" viewBox="0 0 50 50"><circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg></div></main><script>const screens = document.querySelector("#screens");
+        const navbar = document.querySelector("#navbar");
+
+        const pages = ["Flights", "Rewards"];
+        const debounce = (func, wait, immediate) => {
+            var timeout;
+            return (...args) => {
+            const later = () => {
+                timeout = null;
+                if (!immediate) func.apply(this, args);
+            };
+            const callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(this, args);
+            };
+        };
+
+        const pageTransition = debounce(() => {
+            const index = Math.round(screens.scrollLeft / window.innerWidth);
+            navbar.textContent = pages[index];
+        }, 60);
+        screens.addEventListener("scroll", pageTransition);</script><script src="src/index.js"></script></body></html>

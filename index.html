@@ -54,6 +54,38 @@
             }
         }
 
+        .card {
+            width: auto;
+            height: 50px;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            margin: 10px;
+            border-radius: 10px;
+            border: 1px solid;
+        }
+        a.reward-card {
+            width: 100vw;
+            height: auto;
+            display: block;
+        }
+        a.reward-card > img {
+            width: 80%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+        #install-prompt {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 30px;
+            font-weight: 600;
+            color: aqua;
+            padding: 15px;
+        }
         @keyframes rotate {
         100% {
             transform: rotate(360deg);
@@ -75,9 +107,19 @@
         }
         }
     </style>
+    <link rel="apple-touch-icon" sizes="180x180" href="/pwa/src/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/pwa/src/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/pwa/src/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/pwa/src/assets/favicons/site.webmanifest">
+    <link rel="mask-icon" href="/pwa/src/assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/pwa/src/assets/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="/pwa/src/assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#00b99f">
 </head>
 <body>
     <nav id="navbar"> Flights </nav>
+    <div id="install-prompt"> + </div>
     <main id="screens">
         <div id="screen-flights" class="screen"> 
             <svg class="spinner" viewBox="0 0 50 50">
@@ -116,5 +158,6 @@
         }, 60);
         screens.addEventListener("scroll", pageTransition);
     </script>
+    <script src="src/index.js"></script>
 </body>
 </html>
